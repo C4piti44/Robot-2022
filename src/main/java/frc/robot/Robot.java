@@ -86,7 +86,7 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
-    m_robotContainer.teleopPeriodic();//calling the teleopPeriodic function in the robotContainer
+    m_robotContainer.ArcadeDriveFunction();//calling the ArcadeDriveFunction function in the robotContainer
     m_robotContainer.stickButtons[1].whileHeld(m_robotContainer.getShootingCommand());//calling the ShootingCommand while the first button of the joystick is held down.
     m_robotContainer.getDriverSubsystem().feed();//giving more data to the WatchDog so there will be no more errors.
     
