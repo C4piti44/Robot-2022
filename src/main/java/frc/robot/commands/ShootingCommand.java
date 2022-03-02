@@ -8,16 +8,16 @@ public class ShootingCommand extends CommandBase {
 
     @Override
     public void initialize() {
-        addRequirements(m_robotContainer.getShootingSubsytem());
+        addRequirements(m_robotContainer.getShootingSubsytem());//adding the getter for the shooting subsystem
     }
     
     @Override
     public void execute() {
-        m_robotContainer.getShootingSubsytem().shoot(0.9);
+        m_robotContainer.getShootingSubsytem().shoot(0.9);//using the shoot function at 0.9 which put the shooting motor at 90% precent power
     }
 
     @Override
     public void end(boolean interrupted) {
-        m_robotContainer.getShootingSubsytem().stop();        
+        m_robotContainer.getShootingSubsytem().stop();//using the stop function wich stop the motor from spinning
     }
 }
