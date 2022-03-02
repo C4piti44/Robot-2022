@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 
 public class DriverSubsystem extends SubsystemBase {
+    
     private WPI_TalonSRX MotorRightFront , MotorRightRear;
     private SpeedControllerGroup SPD_Right;
     private WPI_TalonSRX MotorLeftFront , MotorLeftRear;
@@ -15,11 +16,13 @@ public class DriverSubsystem extends SubsystemBase {
     private DifferentialDrive diff;
 
     public DriverSubsystem(){
-        this.MotorRightFront =new WPI_TalonSRX(7);
-        this.MotorRightRear = new WPI_TalonSRX(6);
+        //define the motors ports
+        this.MotorRightFront =new WPI_TalonSRX(7/*port number*/);
+        this.MotorRightRear = new WPI_TalonSRX(6/*port number*//*port number*/);
         this.SPD_Right = new SpeedControllerGroup(this.MotorRightFront, this.MotorRightRear);
-        this.MotorLeftFront = new WPI_TalonSRX(5);
-        this.MotorLeftRear = new WPI_TalonSRX(4);
+        
+        this.MotorLeftFront = new WPI_TalonSRX(5/*port number*/);
+        this.MotorLeftRear = new WPI_TalonSRX(4/*port number*/);
         this.SPD_Left = new SpeedControllerGroup(this.MotorLeftFront, this.MotorLeftRear);
         this.diff = new DifferentialDrive(this.SPD_Left, this.SPD_Right);
         //this.diff.setSafetyEnabled(false);
@@ -36,10 +39,12 @@ public class DriverSubsystem extends SubsystemBase {
     }
     public void spin(double power){
         this.diff.tankDrive(power, -power, true);
-    }
+    
+    //turn off the motors
     public void StopDrive(){
         this.diff.arcadeDrive(0, 0, true);
     }
+    //isn't it useless
     public void GoForward(double speed) {
         this.diff.tankDrive(speed, speed, true);
     }
