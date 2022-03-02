@@ -20,9 +20,9 @@ import edu.wpi.first.wpilibj.interfaces.Accelerometer;
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
   public static RobotContainer m_robotContainer;
-  public static ADXRS450_Gyro gyro = new ADXRS450_Gyro();
-  public static ADXL362 acc = new ADXL362(Accelerometer.Range.k16G);
-  public static double angle = 0;
+  public static ADXRS450_Gyro gyro = new ADXRS450_Gyro();//adding gyro object
+  public static ADXL362 acc = new ADXL362(Accelerometer.Range.k16G);//adding accelerometer
+  public static double angle = 0; //the start angle
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -32,8 +32,6 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
-
-    
   }
   /**
    * This function is called every robot packet, no matter the mode. Use this for items like
@@ -88,12 +86,13 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
-    m_robotContainer.teleopPeriodic();
-    m_robotContainer.stickButtons[1].whileHeld(m_robotContainer.getShootingCommand());
-    m_robotContainer.getDriverSubsystem().feed();
-    if(angle >= 360 || angle <= -360)
+    m_robotContainer.teleopPeriodic();//calling the teleopPeriodic function in the robotContainer
+    m_robotContainer.stickButtons[1].whileHeld(m_robotContainer.getShootingCommand());//calling the ShootingCommand while the first button of the joystick is held down.
+    m_robotContainer.getDriverSubsystem().feed();//giving more data to the WatchDog so there will be no more errors.
+    
+    if(angle >= 360 || angle <= -360)//adding a limit to the gyro so it would give as a degree with a value of 480 for example
       gyro.reset();
-    if(angle-gyro.getAngle() >= 1 || gyro.getAngle()-angle >= 1)
+    if(angle-gyro.getAngle() >= 1 || gyro.getAngle()-angle >= 1)//this stops the gyro upping it's degrees while its in place
       angle = gyro.getAngle();
   }
 
