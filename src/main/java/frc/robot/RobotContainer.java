@@ -53,44 +53,43 @@ public class RobotContainer {
   public RobotContainer() {
     // Configure the button bindings
     configureButtonBindings();
-    this.shootingCommand = new ShootingCommand();
+    this.shootingCommand = new ShootingCommand();//creating a ShootingCommand object
     //this.collectorCommand = new CollectorCommand();
     //this.driverControllerCommand = new DriverControllerCommand();
     //this.goBackwardCommand = new GoBackwardCommand();
     //this.goForwardCommand = new GoForwardCommand();
   }
-  public void teleopPeriodic(){
-    this.driverSubsystem.ArcadeDrive(stick.getY(), stick.getX());
+  public void ArcadeDriveFunction(){
+    this.driverSubsystem.ArcadeDrive(stick.getY(), stick.getX());//because they're were multiple unknown problems with the arcadeDriveCommand
   }
-  public ShootingSubsystem getShootingSubsytem(){
+  public ShootingSubsystem getShootingSubsytem(){//a getter for the Shooting Subsystem
     return this.shootingSubsystem;
   }
-  public Command getShootingCommand(){
+  public Command getShootingCommand(){//a getter for the shooting command
     return this.shootingCommand;
   }
-  public Joystick getStick(){
+  public Joystick getStick(){// a getter for the joystick
     return this.stick;
   }
-  public DriverSubsystem getDriverSubsystem(){
+  public DriverSubsystem getDriverSubsystem(){//a getter for the driver subsystem
     return this.driverSubsystem;
   }
-  public CollectorSubsystem getCollectorSubsystem(){
+  public CollectorSubsystem getCollectorSubsystem(){//a getter for the collector subsystem
       return this.collectorSubsystem;
   }
-  public Joystick getTankStick(){
+  public Joystick getTankStick(){//a getter for the secconds joystick
     return this.tankStick;
   }
-  public Command getArcadeDriveCommand(){
+  public Command getArcadeDriveCommand(){// a useless getter for the arcade drive command
     return this.arcadeDriveCommand;
   }
-
-  public Command getCollectorCommand(){
+  public Command getCollectorCommand(){//a getter for the collector command
     return this.collectorCommand;
   }
   // public ControllerDriveSubsystem getContorllerDriverSubsystem(){
   //   return this.controllerDriveSubsystem;
   // }
-  public XboxController getController(){
+  public XboxController getController(){//a getter for an Xbox controller that will be maybe using
     return this.controller;
   }
   // public Command getDriverControllerCommand(){
@@ -106,10 +105,10 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    this.stick = new Joystick(0);
-    this.tankStick = new Joystick(2);
-    this.controller = new XboxController(0);
-    for(int i = 0; i < stickButtons.length; i++){
+    this.stick = new Joystick(0);//creating a Joystick object
+    this.tankStick = new Joystick(2);//adding a Joystick object
+    this.controller = new XboxController(0);//adding a XboxContorller object
+    for(int i = 0; i < stickButtons.length; i++){//creating all the buttons for the Joysticks
       tankStickButtons[i] = new JoystickButton(this.tankStick, i);
       stickButtons[i] = new JoystickButton(this.stick, i);
     }
