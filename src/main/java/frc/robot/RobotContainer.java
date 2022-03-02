@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.ArcadeDriveCommand;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.ShootingCommand;
-import frc.robot.subsystems.CameraSubsystem;
+
 import frc.robot.subsystems.CollectorSubsystem;
 import frc.robot.subsystems.DriverSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
@@ -35,29 +35,32 @@ public class RobotContainer {
   private final CollectorSubsystem collectorSubsystem = new CollectorSubsystem();
   private CollectorCommand collectorCommand;
   
-  
+  // private final ControllerDriveSubsystem controllerDriveSubsystem = new ControllerDriveSubsystem();
+  // private DriverControllerCommand driverControllerCommand;
+
   private final DriverSubsystem driverSubsystem = new DriverSubsystem();
   private ArcadeDriveCommand arcadeDriveCommand;
 
-  private final CameraSubsystem cameraSubsystem = new CameraSubsystem();
+
 
   private Joystick stick;
   public JoystickButton stickButtons[] = new JoystickButton[12];
   public JoystickButton tankStickButtons[] = new JoystickButton[12];
+  private XboxController controller;
   private Joystick tankStick;
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the button bindings
     configureButtonBindings();
-    //this.shootingCommand = new ShootingCommand();
-    this.arcadeDriveCommand = new ArcadeDriveCommand();
-    this.collectorCommand = new CollectorCommand();
-    //this.tankDriveCommand = new TankDriveCommand();
-    //this.spinLeftCommand = new SpinLeftCommand();
-    //this.spinRightCommand = new SpinRightCommand();
+    this.shootingCommand = new ShootingCommand();
+    //this.collectorCommand = new CollectorCommand();
+    //this.driverControllerCommand = new DriverControllerCommand();
     //this.goBackwardCommand = new GoBackwardCommand();
     //this.goForwardCommand = new GoForwardCommand();
+  }
+  public void teleopPeriodic(){
+    this.driverSubsystem.ArcadeDrive(stick.getY(), stick.getX());
   }
   public ShootingSubsystem getShootingSubsytem(){
     return this.shootingSubsystem;
@@ -80,12 +83,19 @@ public class RobotContainer {
   public Command getArcadeDriveCommand(){
     return this.arcadeDriveCommand;
   }
-  public CameraSubsystem getCameraSubsystem(){
-    return this.cameraSubsystem;
-  }
+
   public Command getCollectorCommand(){
     return this.collectorCommand;
   }
+  // public ControllerDriveSubsystem getContorllerDriverSubsystem(){
+  //   return this.controllerDriveSubsystem;
+  // }
+  public XboxController getController(){
+    return this.controller;
+  }
+  // public Command getDriverControllerCommand(){
+  //   return this.driverControllerCommand;
+  // }
 
 
 
@@ -98,6 +108,7 @@ public class RobotContainer {
   private void configureButtonBindings() {
     this.stick = new Joystick(0);
     this.tankStick = new Joystick(2);
+    this.controller = new XboxController(0);
     for(int i = 0; i < stickButtons.length; i++){
       tankStickButtons[i] = new JoystickButton(this.tankStick, i);
       stickButtons[i] = new JoystickButton(this.stick, i);

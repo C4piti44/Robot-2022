@@ -14,7 +14,7 @@ package frc.robot;
  */
 public final class Constants {
     public final class Drive{
-        final public static int MOTOR_A = 1, MOTOR_B = 2, MOTOR_C = 3, MOTOR_D = 4;
+        final public static int M_RIGHT_FRONT = 7, M_RIGHT_REAR = 4, M_LEFT_FRONT = 5, M_LEFT_REAR = 6;
     }
     public final class color{
     }

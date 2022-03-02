@@ -12,6 +12,11 @@ public class CollectorCommand extends CommandBase {
         m_robotContainer.getCollectorSubsystem().Collect();
     }
     @Override
+    public boolean isFinished() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+    @Override
     public void end(boolean interrupted) {
         m_robotContainer.getCollectorSubsystem().stop();
     }

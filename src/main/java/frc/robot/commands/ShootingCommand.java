@@ -9,17 +9,15 @@ public class ShootingCommand extends CommandBase {
     @Override
     public void initialize() {
         addRequirements(m_robotContainer.getShootingSubsytem());
-        super.initialize();
     }
+    
     @Override
     public void execute() {
-        m_robotContainer.getShootingSubsytem().shoot(0.3);
-        super.execute();
+        m_robotContainer.getShootingSubsytem().shoot(0.9);
     }
 
     @Override
     public void end(boolean interrupted) {
         m_robotContainer.getShootingSubsytem().stop();        
-        super.end(interrupted);
     }
 }

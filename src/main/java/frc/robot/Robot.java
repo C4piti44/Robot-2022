@@ -7,11 +7,10 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.ADXL362;
 import edu.wpi.first.wpilibj.interfaces.Accelerometer;
-import edu.wpi.first.wpilibj.SPI;
+
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
  * each mode, as described in the TimedRobot documentation. If you change the name of this class or
@@ -21,9 +20,8 @@ import edu.wpi.first.wpilibj.SPI;
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
   public static RobotContainer m_robotContainer;
-  public static WPI_TalonSRX motor = new WPI_TalonSRX(7);
   public static ADXRS450_Gyro gyro = new ADXRS450_Gyro();
-  public static ADXL362 acc = new ADXL362(SPI.Port.kMXP,Accelerometer.Range.k16G);
+  public static ADXL362 acc = new ADXL362(Accelerometer.Range.k16G);
   public static double angle = 0;
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -34,6 +32,8 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
+
+    
   }
   /**
    * This function is called every robot packet, no matter the mode. Use this for items like
@@ -88,14 +88,15 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
-    System.out.println(angle);
+    m_robotContainer.teleopPeriodic();
+    m_robotContainer.stickButtons[1].whileHeld(m_robotContainer.getShootingCommand());
+    m_robotContainer.getDriverSubsystem().feed();
     if(angle >= 360 || angle <= -360)
       gyro.reset();
     if(angle-gyro.getAngle() >= 1 || gyro.getAngle()-angle >= 1)
       angle = gyro.getAngle();
-    m_robotContainer.stickButtons[1].whenInactive(m_robotContainer.getArcadeDriveCommand());
-    m_robotContainer.stickButtons[3].whileHeld(m_robotContainer.getCollectorCommand());  
   }
+
 
   @Override
   public void testInit() {

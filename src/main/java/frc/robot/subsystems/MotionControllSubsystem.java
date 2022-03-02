@@ -57,7 +57,7 @@ public class MotionControllSubsystem extends SubsystemBase {
      *   the rotation double controls the yaw motion of the robot (positive = rotate right around z axis, negative = rotate left around z axis)
      * 
      *  */ 
-    public void arcadeDrive (double speed , double Rotation){
+    public void arcadeDrive(double speed , double Rotation){
         this.dff.arcadeDrive(-speed, Rotation);
     }
 
